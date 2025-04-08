@@ -34,45 +34,45 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 	const msg = new SpeechSynthesisUtterance();
-	const voicesDropdown = document.querySelector('voices');
-	const rate = document.querySelector('rate');
-	const pitch = document.querySelector('pitch');
-	const text = document.querySelector('text');
-	const speakButton = document.querySelector('speak');
-	const stopButton = document.querySelector('stop');
+	const voicesDropdown = document.querySelector('#voices');
+	const rate = document.querySelector('input[name="rate"]');
+	const pitch = document.querySelector('input[name="pitch"]');
+	const text = document.querySelector('textarea[name="text"]');
+	const speakButton = document.querySelector('#speak');
+	const stopButton = document.querySelector('#stop');
 
 	let voices = [];
 
 	function populateVoices() {
-	  voices = speechSynthesis.getVoices();
-	  voicesDropdown.innerHTML = voices
-	    .map(voice => `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`)
-	    .join('');
+		voices = speechSynthesis.getVoices();
+		voicesDropdown.innerHTML = voices
+			.map(voice => `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`)
+			.join('');
 	}
 
 	function setVoice() {
-	  msg.voice = voices.find(voice => voice.name === voicesDropdown.value);
-	  restart();
+		msg.voice = voices.find(voice => voice.name === voicesDropdown.value);
+		restart();
 	}
 
 	function speak() {
-	  if (!text.value.trim()) {
-	    alert('Please enter some text!');
-	    return;
-	  }
-	  msg.text = text.value;
-	  msg.rate = parseFloat(rate.value);
-	  msg.pitch = parseFloat(pitch.value);
-	  speechSynthesis.speak(msg);
+		if (!text.value.trim()) {
+			alert('Please enter some text!');
+			return;
+		}
+		msg.text = text.value;
+		msg.rate = parseFloat(rate.value);
+		msg.pitch = parseFloat(pitch.value);
+		speechSynthesis.speak(msg);
 	}
 
 	function stop() {
-	  speechSynthesis.cancel();
+		speechSynthesis.cancel();
 	}
-	
+
 	function restart() {
-	  stop();
-	  speak();
+		stop();
+		speak();
 	}
 
 	speechSynthesis.addEventListener('voiceschanged', populateVoices);
@@ -81,9 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	pitch.addEventListener('change', () => msg.pitch = parseFloat(pitch.value));
 	speakButton.addEventListener('click', speak);
 	stopButton.addEventListener('click', stop);
-	
+
 	populateVoices();
 });
+
   //Your code goes here
 </script>
 
