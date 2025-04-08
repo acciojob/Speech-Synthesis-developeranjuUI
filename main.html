@@ -32,6 +32,7 @@
     </div>
 
 <script>
+	document.addEventListener('DOMContentLoaded', () => {
   const msg = new SpeechSynthesisUtterance();
 const voicesDropdown = document.getElementById('voices');
 const rate = document.getElementById('rate');
@@ -82,7 +83,7 @@ speakButton.addEventListener('click', speak);
 stopButton.addEventListener('click', stop);
 
 populateVoices();
-
+	});
   //Your code goes here
 </script>
 
